@@ -136,6 +136,7 @@
     <ClCompile Include="Data_Base_Tools.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Untitled Diagram.drawio (1).pdf" />
