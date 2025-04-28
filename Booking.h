@@ -1,8 +1,11 @@
+#pragma once
 #include <string>
+#include "Trainee.h"
 using namespace std;
 
 class Booking {
-private:
+    static int count;
+    string id;
     string day;
     float price ;
     string startTime;
@@ -10,31 +13,29 @@ private:
     float timePeriod;
     bool isConfirmed;
 
-public:
+    public:
     Booking ();
-    Booking( string day = "", string startTime = 0 , float timePeriod = 0  , bool isConfirmed = false );
+    Booking(Trainee trainee, Court court, string day, string startTime, float timePeriod , bool isConfirmed);
     ~Booking();
 
-    void setTraineeName(string name);
     void setDay(string d);
     void setStartTime(float st);
     void setEndTime(float et);
     void setTimePeriod(float tp);
-    void setisCongfirmed (bool ic)
+    void setisCongfirmed (bool ic);
 
-    string getTraineeName() ;
-    string getDay() ;
-    float getStartTime();
-    float getEndTime() ;
+    string getId();
+    string getDay();
+    string getStartTime();
+    string getEndTime() ;
     float getTimePeriod() ;
     bool getisConfirmed();
 
     bool confirmBooking();
     bool cancelBooking();
-    bool updateBooking(string newStart, string newEnd);
-    void displayBookingInfo() ;
-    floatPrice (int timperiod );
+    bool updateBooking(string newStart, int newTimePeriod);
+    void displayBookingInfo();
 
-    string calculateEndTime( string start, int durationHours);
+    string calculateEndTime(string start, float durationHours);
 
 };

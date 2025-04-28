@@ -1,25 +1,38 @@
 #include "Booking.h"
-Booking::Booking();
-Booking::Booking( string day,string startTime, float timePeriod ,bool isConfirmed ) {
 
+#include <iomanip>
+#include <sstream>
+
+int Booking::count = 0;
+
+Booking::Booking() = default;
+Booking::Booking(Trainee trainee, Court court, string day,string startTime, float timePeriod ,bool isConfirmed ) {
+    this->id = to_string(trainee.getId()) + to_string(court.getId()) + to_string(++count);
     this->day = day;
     this->startTime = startTime;
-    this->endTime = calculateEndTime( startTime, timePeriod);
+    this->endTime = calculateEndTime(startTime, timePeriod);
     this->timePeriod = timePeriod;
-    this->price = calcprice(timePeriod);
-    this->isConfirmed = false ;
+    this->price = court.getPrice() * timePeriod;
+    this->isConfirmed = isConfirmed;
 }
 
-Booking::~Booking() {}
+Booking::~Booking() {
+    this->day.clear();
+    this->startTime.clear();
+    this->endTime.clear();
+    this->timePeriod = 0;
+    this->price = 0;
+    this->isConfirmed = false;
+}
 
 
-void Booking::setDay(const string& d) { this->day = d; }
+void Booking::setDay(string d) { this->day = d; }
 void Booking::setStartTime(float st) { this->startTime = st; }
 void Booking::setEndTime(float et) { this->endTime = et; }
 void Booking::setTimePeriod(float tp) { this->timePeriod = tp; }
 void Booking::setisCongfirmed (bool ic){this->isConfirmed =ic  ;}
 
-string Booking::getTraineeName()  { return traineeName; }
+string Booking::getId()  { return this->id; }
 string Booking::getDay()  { return day; }
 string Booking::getStartTime() { return startTime; }
 string Booking::getEndTime()  { return endTime; }
@@ -27,7 +40,7 @@ float Booking::getTimePeriod()  { return timePeriod; }
 bool  Booking:: getisConfirmed() {return isConfirmed ;}
 
 
-string Booking calculateEndTime( string start, int durationHours) {
+string Booking::calculateEndTime(string start, float durationHours) {
     int startHour, startMinute;
     char colon;
 
@@ -52,16 +65,12 @@ string Booking calculateEndTime( string start, int durationHours) {
     return result.str();
 }
 
-float Booking :: calcPrice (int timeperiod ){
-    Court c;
-    return c.pricePerHour * timeperiod ;
-}
-bool Booking :: confirmBooking () {
+bool Booking::confirmBooking () {
     if (!isConfirmed){
-        isConfirmed=true ;
-        return true ;
+        isConfirmed = true;
+        return true;
     }
-    return false ;
+    return false;
 
 }
 bool Booking::cancelBooking() {
@@ -72,11 +81,11 @@ bool Booking::cancelBooking() {
     return false;
 }
 bool Booking::updateBooking(string newStart,int newTimePeriod ){
-    this->starTime =newStart ;
-    this->timePeriod =
+    this->startTime = newStart ;
+    this->timePeriod = newTimePeriod;
     return true;
 }
-void Booking :: displayBookingInfo() {
+void Booking::displayBookingInfo() {
     cout<<"startTime "<< startTime ;
     cout<<"endTime "<< endTime ;
     cout<<"total price per duration " << price ;

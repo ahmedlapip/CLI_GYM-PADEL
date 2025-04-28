@@ -1,24 +1,25 @@
 #include <string>
 #include <list>
+#include <unordered_map>
+
 #include "Court.h"
 using namespace std;
 
 class Padel {
-private:
     string name;
     int workingHours;
     string startTime;
     string endTime;
     string manager;
-    list<Trainee> trainees;
-    list<Court> courts;
+    unordered_map<string, Court> courts;
+    unordered_map<string, Booking> bookings;
 
 public:
     Padel ();
-    Padel(string name = "", int workingHours = 0, string startTime = "", string endTime = "", string manager = "");
+    Padel(string name, int workingHours, string startTime, string endTime, string manager);
     ~Padel();
 
-    void setName( string n);
+    void setName(string n);
     void setWorkingHours(int hours);
     void setStartTime( string st);
     void setEndTime(string et);
@@ -30,13 +31,16 @@ public:
     string getEndTime();
     string getManager();
 
-    list<Trainee> getTrainees();
-    list<Court> getCourts();
+    unordered_map<string, Court> getCourts();
+    unordered_map<string, Booking> getBookings();
 
-  
-    void addCourt( Court court);
-     bool  removeCourt ();
+
+    void addCourt(Court court);
+    bool removeCourt (Court court);
     void updateCourt ();
     int gettotalCourts ();
     void displayAllCourts();
+
+    void bookCourt(Booking booking);
+    bool removeBooking(Booking booking);
 };

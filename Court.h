@@ -1,46 +1,36 @@
+#pragma once
+
 #include <string>
-#include <list>
 #include "Booking.h"
+#include "Court.h"
 using namespace std;
 
 class Court {
-private:
-    int totalTrainees  ;
     string name;
-    int id;
+    static int id;
+    int courtId;
     float pricePerHour ;
     bool isBooked;
     string location;
-    list<Booking> bookings;
-    list<Tainee> trainee;
-public:
+    public:
     Court ();
-    Court(string name = "", string id = "", float pricePerHour = 0, string location = "", bool isBooked = "");
+    Court(string name, float pricePerHour, string location, bool isBooked);
     ~Court();
 
     void setName(string n);
-    void setId( string i);
     void setPrice(float p);
-    void setLocation( string loc);
-    void settotalTrainees (int t)
-    void setisBooked (bool b)
+    void setLocation(string loc);
+    void setIsBooked (bool b);
 
-    string getName() ;
-    string getId() ;
-    float getPrice() ;
+    string getName();
+    int getId();
+    float getPrice();
     string getLocation();
-    int gettotalTrainees ();
-    bool getisBooked ();
-
-    list<Trainee> getTrainees();
-    list<Booking> getBookings() ;
+    bool getIsBooked ();
     
 
-    // functions 
-    bool bookCourt(Booking* booking);
-    bool releaseCourt();
-    bool isAvailable() ;
-    void displayCourtInfo() ;
-
+    // functions
+    bool isAvailable();
+    void displayCourtInfo();
     
 };
