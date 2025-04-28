@@ -1,5 +1,6 @@
+#pragma once
+
 #include <string>
-#include <list>
 #include <unordered_map>
 
 #include "Court.h"
