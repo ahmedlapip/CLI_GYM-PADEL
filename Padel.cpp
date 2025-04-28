@@ -10,7 +10,13 @@ Padel::Padel(string name, int workingHours, string startTime, string endTime, st
     this->manager = manager;
 }
 
-Padel::~Padel() {}
+Padel::~Padel() {
+    this->name.clear();
+    this->workingHours = 0;
+    this->startTime.clear();
+    this->endTime.clear();
+    this->manager.clear();
+}
 
 void Padel::setName( string n) { this->name = n; }
 void Padel::setWorkingHours(int hours) { this->workingHours = hours; }
