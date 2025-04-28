@@ -127,10 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Data_Base.h" />
+    <ClInclude Include="Data_Base_Tools.h" />
     <ClInclude Include="InputHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data_Base.cpp" />
+    <ClCompile Include="Data_Base_Tools.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Untitled Diagram.drawio (1).pdf" />
+    <None Include="Untitled Diagram.drawio.pdf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
