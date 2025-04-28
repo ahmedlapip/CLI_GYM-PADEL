@@ -41,7 +41,12 @@ bool Padel::removeCourt(Court court) {
     return true;
 }
 
-void Padel::bookCourt(Booking booking) { bookings[booking.getId()] = booking; }
+bool Padel::bookCourt(Booking booking) {
+    if (bookings.contains(booking.getId()) && booking.getisConfirmed()) return false;
+    bookings[booking.getId()] = booking;
+    booking.setisCongfirmed(true);
+    return true;
+}
 bool Padel::removeBooking(Booking booking) {
     if (bookings.empty()) return false;
     if (!bookings.contains(booking.getId())) return false;
