@@ -42,6 +42,6 @@ public:
     int gettotalCourts ();
     void displayAllCourts();
 
-    void bookCourt(Booking booking);
+    bool bookCourt(Booking booking);
     bool removeBooking(Booking booking);
 };
