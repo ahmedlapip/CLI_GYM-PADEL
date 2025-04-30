@@ -1,4 +1,3 @@
-
    #pragma once  
    #include <xlnt/xlnt.hpp>  
    #include <string>  
@@ -55,4 +54,3 @@
       xlnt::worksheet GetCoachTrainingClasses(std::string FileName);  
       xlnt::worksheet GetStaffMember(std::string FileName);  
    };
-
