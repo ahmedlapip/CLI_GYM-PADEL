@@ -36,20 +36,20 @@ unordered_map<string, Booking> Padel::getBookings() { return bookings; }
 void Padel::addCourt(Court court) { courts[court.getName()] = court; }
 bool Padel::removeCourt(Court court) {
     if (courts.empty()) return false;
-    if (!courts.contains(court.getName())) return false;
+    if (courts.find(court.getName()) == courts.end()) return false;
     courts.erase(court.getName());
     return true;
 }
 
 bool Padel::bookCourt(Booking booking) {
-    if (bookings.contains(booking.getId()) && booking.getisConfirmed()) return false;
+    if (bookings.find(booking.getId()) != bookings.end() && booking.getisConfirmed()) return false;
     bookings[booking.getId()] = booking;
     booking.setisCongfirmed(true);
     return true;
 }
 bool Padel::removeBooking(Booking booking) {
     if (bookings.empty()) return false;
-    if (!bookings.contains(booking.getId())) return false;
+    if (bookings.find(booking.getId()) == bookings.end()) return false;
     bookings.erase(booking.getId());
     return true;
 }
