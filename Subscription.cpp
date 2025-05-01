@@ -1,12 +1,4 @@
 #include "Subscription.h"
-<<<<<<< HEAD
-
-Subscription::Subscription(string startDate, string endDate, float price, float discount) {
-    this->startDate = startDate;
-    this->endDate = endDate;
-    this->price = price;
-    this->discount = discount;
-=======
 #include "Trainee.h"
 #include <random>
 
@@ -18,14 +10,16 @@ Subscription::Subscription(Trainee trainee, string startDate, bool type, int per
     this->endDate = end_date_calc(startDate, type, period);
     this->period = period;
     this->type = type;
-    if (type) this->price = 3000.0f * (float)period;
-    else this->price = 300.0f * (float)period;;
-    if ((period >= 5 && !type) || (period >= 2 && type)) this->price = manage_discount(price);
+    if (trainee.getIsVIP() && type) this->price = 3100.0f * (float)period;
+    else if (trainee.getIsVIP() && !type) this->price = 310.0f * (float)period;
+    else if (type) this->price = 3000.0f * (float)period;
+    else this->price = 300.0f * (float)period;
+    if (trainee.getIsVIP()) this->price = manage_discount(price);
     else this->price = price;
 }
 
 Subscription::~Subscription() {
-    this->startDate = "";
+    this->startDate.clear();
     this->period = 0;
     this->type = false;
     this->price = 0.0;
@@ -85,9 +79,7 @@ float Subscription::manage_discount(float price) {
     return finalPrice;
 }
 
-
 void Subscription::display() {
-    cout << this->endDate << endl;
-    cout << this->price << endl;
->>>>>>> 4ae143ecec2b8c329adb42e47c39ea1d4f22ea99
+    cout << "The Subscription will end at " << this->endDate << endl;
+    cout << "The Price: " << this->price << endl;
 }

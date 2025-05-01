@@ -9,28 +9,27 @@ class Court {
     string name;
     static int id;
     int courtId;
-    float pricePerHour ;
-    bool isBooked;
+    float pricePerHour;
+    bool isAvailable;
     string location;
     public:
     Court ();
-    Court(string name, float pricePerHour, string location, bool isBooked);
+    Court(string name, float pricePerHour, string location, bool isAvailable);
     ~Court();
 
     void setName(string n);
     void setPrice(float p);
     void setLocation(string loc);
-    void setIsBooked (bool b);
+    void setIsAvailable(bool b);
 
     string getName();
     int getId();
     float getPrice();
     string getLocation();
-    bool getIsBooked ();
+    bool getIsAvailable();
     
 
     // functions
-    bool isAvailable();
     void displayCourtInfo();
     
 };

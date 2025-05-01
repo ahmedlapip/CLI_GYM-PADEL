@@ -6,14 +6,16 @@
 int Booking::count = 0;
 
 Booking::Booking() = default;
-Booking::Booking(Trainee trainee, Court court, string day,string startTime, float timePeriod ,bool isConfirmed ) {
+Booking::Booking(Trainee trainee, Court court, string day,string startTime, float timePeriod) {
     this->id = to_string(trainee.getId()) + to_string(court.getId()) + to_string(++count);
     this->day = day;
     this->startTime = startTime;
     this->endTime = calculateEndTime(startTime, timePeriod);
     this->timePeriod = timePeriod;
     this->price = court.getPrice() * timePeriod;
-    this->isConfirmed = isConfirmed;
+    this->isConfirmed = false;
+    this->trainee = &trainee;
+	this->court = &court;
 }
 
 Booking::~Booking() {
@@ -27,45 +29,76 @@ Booking::~Booking() {
 
 
 void Booking::setDay(string d) { this->day = d; }
-void Booking::setStartTime(float st) { this->startTime = st; }
-void Booking::setEndTime(float et) { this->endTime = et; }
+void Booking::setStartTime(string st) { this->startTime = st; }
+void Booking::setEndTime(string et) { this->endTime = et; }
 void Booking::setTimePeriod(float tp) { this->timePeriod = tp; }
-void Booking::setisCongfirmed (bool ic){this->isConfirmed =ic  ;}
+void Booking::setIsConfirmed (bool ic){this->isConfirmed =ic  ;}
 
-string Booking::getId()  { return this->id; }
-string Booking::getDay()  { return day; }
+string Booking::getId() { return id; }
+string Booking::getDay() { return day; }
 string Booking::getStartTime() { return startTime; }
-string Booking::getEndTime()  { return endTime; }
-float Booking::getTimePeriod()  { return timePeriod; }
-bool  Booking:: getisConfirmed() {return isConfirmed ;}
+string Booking::getEndTime() { return endTime; }
+float Booking::getTimePeriod() { return timePeriod; }
+bool Booking:: getIsConfirmed() {return isConfirmed ;}
 
+
+//string Booking::calculateEndTime(string start, float durationHours) {
+//    int startHour, startMinute;
+//    char colon;
+//
+//    stringstream ss(start);
+//    ss >> startHour >> colon >> startMinute;
+//
+//    int totalMinutes = (startHour * 60) + startMinute;
+//    totalMinutes += durationHours * 60;
+//
+//    int endHour = (totalMinutes / 60) % 24;
+//    int endMinute = totalMinutes % 60;
+//
+//    string period = (endHour >= 12) ? "PM" : "AM";
+//    
+//    int displayHour = endHour % 12;
+//    if (displayHour == 0) displayHour = 12; 
+//
+//    stringstream result;
+//    result << setfill('0') << setw(2) << displayHour << ":"
+//           << setfill('0') << setw(2) << endMinute << " " << period;
+//
+//    return result.str();
+//}
 
 string Booking::calculateEndTime(string start, float durationHours) {
-    int startHour, startMinute;
+    // Parse "HH:MM" (24-hour)
+    int hour = 0, minute = 0;
     char colon;
+    {
+        stringstream ss(start);
+        ss >> hour >> colon >> minute;
+    }
 
-    stringstream ss(start);
-    ss >> startHour >> colon >> startMinute;
+    // Compute total minutes (round fractional minutes)
+    int addMins = static_cast<int>(round(durationHours * 60.0f));
+    int total = hour * 60 + minute + addMins;
 
-    int totalMinutes = (startHour * 60) + startMinute;
-    totalMinutes += durationHours * 60;
+    // Wrap around 24h clock
+    total %= (24 * 60);
+    if (total < 0) total += 24 * 60;
 
-    int endHour = (totalMinutes / 60) % 24;
-    int endMinute = totalMinutes % 60;
+    int endHour = total / 60;
+    int endMinute = total % 60;
 
-    string period = (endHour >= 12) ? "PM" : "AM";
-    
-    int displayHour = endHour % 12;
-    if (displayHour == 0) displayHour = 12; 
-
-    stringstream result;
-    result << setfill('0') << setw(2) << displayHour << ":"
-           << setfill('0') << setw(2) << endMinute << " " << period;
-
-    return result.str();
+    // Format back to "HH:MM"
+    stringstream out;
+    out << setfill('0') << setw(2) << endHour
+        << ":" << setfill('0') << setw(2) << endMinute;
+    return out.str();
 }
 
 bool Booking::confirmBooking () {
+    if (!court->getIsAvailable()) {
+		cout << "Court is not available for booking!" << endl;
+        return false;
+    }
     if (!isConfirmed){
         isConfirmed = true;
         return true;
@@ -73,21 +106,16 @@ bool Booking::confirmBooking () {
     return false;
 
 }
-bool Booking::cancelBooking() {
-    if (isConfirmed) {
-        isConfirmed = false;
-        return true;
-    }
-    return false;
-}
+
 bool Booking::updateBooking(string newStart,int newTimePeriod ){
     this->startTime = newStart ;
     this->timePeriod = newTimePeriod;
     return true;
 }
+
 void Booking::displayBookingInfo() {
-    cout<<"startTime "<< startTime ;
-    cout<<"endTime "<< endTime ;
-    cout<<"total price per duration " << price ;
+    cout<<"startTime: "<< startTime << endl;
+    cout<<"endTime: "<< endTime << endl;
+    cout<<"total price per duration: " << price << endl;
 }
 

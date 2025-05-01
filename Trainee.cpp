@@ -4,7 +4,7 @@ int Trainee::id = 0;
 
 Trainee::Trainee() = default;
 
-Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, string email, string password, bool gymOrPadel) {
+Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, string email, string password, bool gymOrPadel, bool isVIP) {
     userId = ++id;
     this->name = name;
     this->phone = phone;
@@ -13,16 +13,17 @@ Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, s
     this->email = email;
     this->password = password;
     this->gymOrPadel = gymOrPadel;
+    this->isVIP = isVIP;
 }
 
 Trainee::~Trainee() {
     this->userId = 0;
-    this->name = "";
-    this->phone = "";
-    this->gender = "";
-    this->dateOfBirth = "";
-    this->email = "";
-    this->password = "";
+    this->name.clear();
+    this->phone.clear();
+    this->gender.clear();
+    this->dateOfBirth.clear();
+    this->email.clear();
+    this->password.clear();
     this->gymOrPadel = false;
 }
 
@@ -35,6 +36,7 @@ string Trainee::getDateOfBirth() { return this->dateOfBirth; }
 string Trainee::getEmail() { return this->email; }
 string Trainee::getPassword() { return this->password; }
 bool Trainee::getGymOrPadel() { return this->gymOrPadel; }
+bool Trainee::getIsVIP() { return this->isVIP; }
 
 void Trainee::setName(string name) { this->name = name; }
 void Trainee::setPhone(string phone) { this->phone = phone; }
@@ -43,6 +45,7 @@ void Trainee::setDateOfBirth(string dateOfBirth) { this->dateOfBirth = dateOfBir
 void Trainee::setEmail(string email) { this->email = email; }
 void Trainee::setPassword(string password) { this->password = password; }
 void Trainee::setGymOrPadel(bool gymOrPadel) { this->gymOrPadel = gymOrPadel; }
+void Trainee::setIsVIP(bool isVIP) { this->isVIP = isVIP; }
 
 void Trainee::subscribe(Subscription sub) {
     subscription = sub;
@@ -61,11 +64,16 @@ void Trainee::renew_subscription(int period) {
     cout << "Subscription renewed. New end date: " << newEndDate << endl;
 }
 
-
 void Trainee::delete_subscription() {
     subscription = Subscription();
     cout << "Subscription deleted successfully." << endl;
 }
 
+void Trainee::view_workout_history() {
+    for(auto i : workout_history) {
+        cout << i << endl;
+    }
+}
 
->>>>>>> 4ae143ecec2b8c329adb42e47c39ea1d4f22ea99
+
+

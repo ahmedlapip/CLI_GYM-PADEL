@@ -38,8 +38,8 @@ public:
 
     void addCourt(Court court);
     bool removeCourt (Court court);
-    void updateCourt ();
-    int gettotalCourts ();
+    void updateCourt();
+    Court searchCourt(string name);
     void displayAllCourts();
 
     bool bookCourt(Booking booking);
