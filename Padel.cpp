@@ -4,43 +4,36 @@
 #include <cmath>
 
 Padel::Padel() = default;
-Padel::Padel(string name, int workingHours, string startTime, string endTime, string manager) {
-    this->name = name;
-    this->workingHours = workingHours;
-    this->startTime = startTime;
-    this->endTime = endTime;
-    this->manager = manager;
-}
+Padel::~Padel() = default;
 
-Padel::~Padel() {
-    this->name.clear();
-    this->workingHours = 0;
-    this->startTime.clear();
-    this->endTime.clear();
-    this->manager.clear();
-}
-
-void Padel::setName(string n) { this->name = n; }
-void Padel::setWorkingHours(int hours) { this->workingHours = hours; }
-void Padel::setStartTime(string st) { this->startTime = st; }
-void Padel::setEndTime( string et) { this->endTime = et; }
-void Padel::setManager(string m) { this->manager = m; }
-
-string Padel::getName() { return name; }
-int Padel::getWorkingHours()  { return workingHours; }
-string Padel::getStartTime() { return startTime; }
-string Padel::getEndTime()  { return endTime; }
-string Padel::getManager() { return manager; }
-
-unordered_map<string, Court> Padel::getCourts() { return courts; }
+unordered_map<int, Court> Padel::getCourts() { return courts; }
 unordered_map<string, Booking> Padel::getBookings() { return bookings; }
 
-void Padel::addCourt(Court court) { courts[court.getName()] = court; }
+void Padel::addCourt(Court court) { courts[court.getId()] = court; }
 bool Padel::removeCourt(Court court) {
     if (courts.empty()) return false;
-    if (courts.find(court.getName()) == courts.end()) return false;
-    courts.erase(court.getName());
+    if (courts.find(court.getId()) == courts.end()) return false;
+    courts.erase(court.getId());
     return true;
+}
+void Padel::updateCourt(int id, Court court) {
+    courts[id] = court;
+}
+Court Padel::searchCourt(string name) {
+	for (auto pair : courts) {
+		if (pair.second.getName() == name) {
+			cout << "Court found: " << pair.second.getName() << endl;
+			return pair.second;
+		}
+	}
+	cout << "Court not found!" << endl;
+	return Court();
+}
+void Padel::displayAllCourts() {
+	cout << "All courts:\n";
+	for (auto pair : courts) {
+		cout << "Court ID: " << pair.first << ", Name: " << pair.second.getName() << ", Location: " << pair.second.getLocation() << ", Available: " << pair.second.getIsAvailable() << endl;
+	}
 }
 
 
@@ -89,9 +82,23 @@ bool Padel::bookCourt(Booking booking) {
     bookings[id] = booking;
     return true;
 }
-
 bool Padel::removeBooking(Booking booking) {
     if (bookings.find(booking.getId()) == bookings.end()) return false;
     bookings.erase(booking.getId());
     return true;
+}
+
+string Padel::padel_to_string_courts() {
+	stringstream ss;
+	for (auto& pair : courts) {
+		ss << pair.second.courts_to_string() << "\n";
+	}
+	return ss.str();
+}
+string Padel::padel_to_string_bookings() {
+	stringstream ss;
+	for (auto& pair : bookings) {
+		ss << pair.second.bookings_to_string() << "\n";
+	}
+	return ss.str();
 }

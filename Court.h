@@ -1,8 +1,6 @@
 #pragma once
 
 #include <string>
-#include "Booking.h"
-#include "Court.h"
 using namespace std;
 
 class Court {
@@ -31,5 +29,6 @@ class Court {
 
     // functions
     void displayCourtInfo();
+    string courts_to_string();
     
 };

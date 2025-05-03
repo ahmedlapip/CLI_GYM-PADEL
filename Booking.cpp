@@ -6,7 +6,7 @@
 int Booking::count = 0;
 
 Booking::Booking() = default;
-Booking::Booking(Trainee trainee, Court court, string day,string startTime, float timePeriod) {
+Booking::Booking(Trainee trainee, Court court, string day,string startTime, float timePeriod) : trainee(trainee), court(court) {
     this->id = to_string(trainee.getId()) + to_string(court.getId()) + to_string(++count);
     this->day = day;
     this->startTime = startTime;
@@ -14,8 +14,6 @@ Booking::Booking(Trainee trainee, Court court, string day,string startTime, floa
     this->timePeriod = timePeriod;
     this->price = court.getPrice() * timePeriod;
     this->isConfirmed = false;
-    this->trainee = &trainee;
-	this->court = &court;
 }
 
 Booking::~Booking() {
@@ -95,7 +93,7 @@ string Booking::calculateEndTime(string start, float durationHours) {
 }
 
 bool Booking::confirmBooking () {
-    if (!court->getIsAvailable()) {
+    if (!court.getIsAvailable()) {
 		cout << "Court is not available for booking!" << endl;
         return false;
     }
@@ -119,3 +117,18 @@ void Booking::displayBookingInfo() {
     cout<<"total price per duration: " << price << endl;
 }
 
+string Booking::bookings_to_string() {
+    ostringstream oss;
+
+    oss << "ID=" << id
+        << ", Day=" << day
+        << ", Start=" << startTime
+        << ", End=" << endTime
+        << ", Duration=" << timePeriod
+        << ", Price=" << price
+        << ", Confirmed=" << isConfirmed
+        << ", TraineeID=" << trainee.getId()
+        << ", CourtID=" << court.getId();
+
+    return oss.str();
+}

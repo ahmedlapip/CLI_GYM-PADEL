@@ -2,7 +2,6 @@
 #include <iostream>
 #include <list>
 
-#include "Court.h"
 #include "Subscription.h"
 
 using namespace std;
@@ -29,6 +28,7 @@ class Trainee {
     string getPassword();
     bool getGymOrPadel();
     bool getIsVIP();
+    Subscription getSubscription();
 
     void setName(string name);
     void setPhone(string phone);
@@ -38,6 +38,7 @@ class Trainee {
     void setPassword(string password);
     void setGymOrPadel(bool gymOrPadel);
     void setIsVIP(bool isVIP);
+	void setSubscription(Subscription subscription);
 
     void subscribe(Subscription subscription);
     void renew_subscription(int period);

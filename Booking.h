@@ -4,8 +4,6 @@
 #include <cmath> 
 #include "Trainee.h"
 #include "Court.h"
-class Trainee;
-class Court;
 using namespace std;
 
 class Booking {
@@ -17,8 +15,8 @@ class Booking {
     string endTime;
     float timePeriod;
     bool isConfirmed;
-    Trainee *trainee;
-    Court *court;
+    Trainee trainee;
+    Court court;
 
     public:
     Booking();
@@ -44,4 +42,5 @@ class Booking {
 
     string calculateEndTime(string start, float durationHours);
 
+    string bookings_to_string();
 };

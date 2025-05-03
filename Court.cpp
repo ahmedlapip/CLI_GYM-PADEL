@@ -1,4 +1,6 @@
 #include "Court.h"
+#include <sstream>
+#include <iostream>
 
 int Court::id = 0;
 
@@ -37,3 +39,8 @@ void Court::displayCourtInfo() {
     cout << "Price: " << pricePerHour << endl;
 }
 
+string Court::courts_to_string() {
+	stringstream ss;
+	ss << "ID=" << courtId << ", Name=" << name << ", Location=" << location << ", Price=" << pricePerHour << ", Available=" << isAvailable;
+	return ss.str();
+}
