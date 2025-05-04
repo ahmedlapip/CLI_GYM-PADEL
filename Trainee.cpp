@@ -39,7 +39,7 @@ Trainee::~Trainee() {
 }
 
 
-int Trainee::getId() { return this->userId; }
+int Trainee::getId() { return this->id++; }
 string Trainee::getName() { return this->name; }
 string Trainee::getPhone() { return this->phone; }
 string Trainee::getGender() { return this->gender; }

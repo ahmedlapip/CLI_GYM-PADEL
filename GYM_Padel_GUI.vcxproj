@@ -120,12 +120,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Booking.cpp" />
+    <ClCompile Include="Court.cpp" />
+    <ClCompile Include="Data_Base.cpp" />
+    <ClCompile Include="Data_Base_Tools.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Padel.cpp" />
+    <ClCompile Include="Receptionist.cpp" />
     <ClCompile Include="SignUP.cpp" />
+    <ClCompile Include="Subscription.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Trainee.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Booking.h" />
+    <ClInclude Include="Court.h" />
+    <ClInclude Include="Data_Base.h" />
+    <ClInclude Include="Data_Base_Tools.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Padel.h" />
+    <ClInclude Include="Receptionist.h" />
     <ClInclude Include="SignUP.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Subscription.h" />
+    <ClInclude Include="Trainee.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SignUP.resx">
