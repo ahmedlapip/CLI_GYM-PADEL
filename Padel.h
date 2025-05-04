@@ -29,6 +29,6 @@ public:
     bool bookCourt(Booking booking);
     bool removeBooking(Booking booking);
 
-    string padel_to_string_courts();
-	string padel_to_string_bookings();
+    vector<string> padel_to_string_courts();
+    vector<string> padel_to_string_bookings();
 };

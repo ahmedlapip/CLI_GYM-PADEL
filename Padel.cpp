@@ -88,17 +88,17 @@ bool Padel::removeBooking(Booking booking) {
     return true;
 }
 
-string Padel::padel_to_string_courts() {
-	stringstream ss;
+vector<string> Padel::padel_to_string_courts() {
+    vector<string> ss;
 	for (auto& pair : courts) {
-		ss << pair.second.courts_to_string() << "\n";
+		ss.push_back(pair.second.courts_to_string());
 	}
-	return ss.str();
+	return ss;
 }
-string Padel::padel_to_string_bookings() {
-	stringstream ss;
+vector<string> Padel::padel_to_string_bookings() {
+    vector<string> ss;
 	for (auto& pair : bookings) {
-		ss << pair.second.bookings_to_string() << "\n";
+        ss.push_back(pair.second.bookings_to_string());
 	}
-	return ss.str();
+	return ss;
 }
