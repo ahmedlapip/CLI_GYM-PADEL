@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SignUP.h">
+    <ClInclude Include="SignUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Booking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="class.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Court.h">
@@ -28,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Data_Base_Tools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.h">
@@ -42,39 +48,45 @@
     <ClInclude Include="Subscription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Trainee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User.h">
+    <ClInclude Include="workoutplan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogIn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SignUP.cpp">
+    <ClCompile Include="SignUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="User.cpp">
+    <ClCompile Include="Booking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Trainee.cpp">
+    <ClCompile Include="Receptionist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Trainee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Subscription.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Receptionist.cpp">
+    <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Padel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Data_Base_Tools.cpp">
@@ -86,8 +98,19 @@
     <ClCompile Include="Court.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Booking.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="LogIn.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Gym_Padel_DB.xlsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Untitled Diagram.drawio.pdf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Untitled Diagram.drawio (1).pdf">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -20,10 +20,10 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{25FED7B7-7ADD-4C3D-B83C-AC8900928681}</ProjectGuid>
+    <ProjectGuid>{4E4E32F3-5780-4EF2-A8C6-CFF3B0B4D82B}</ProjectGuid>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
-    <RootNamespace>GYMPadelGUI</RootNamespace>
+    <RootNamespace>GymGUI</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -125,34 +125,48 @@
     <ClCompile Include="Data_Base.cpp" />
     <ClCompile Include="Data_Base_Tools.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="LogIn.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Padel.cpp" />
     <ClCompile Include="Receptionist.cpp" />
-    <ClCompile Include="SignUP.cpp" />
+    <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="Subscription.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Trainee.cpp" />
-    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Booking.h" />
+    <ClInclude Include="class.h" />
     <ClInclude Include="Court.h" />
     <ClInclude Include="Data_Base.h" />
     <ClInclude Include="Data_Base_Tools.h" />
+    <ClInclude Include="Hall.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="LogIn.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Padel.h" />
     <ClInclude Include="Receptionist.h" />
-    <ClInclude Include="SignUP.h">
+    <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Subscription.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Trainee.h" />
-    <ClInclude Include="User.h" />
+    <ClInclude Include="workoutplan.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SignUP.resx">
-      <DependentUpon>SignUP.h</DependentUpon>
+    <EmbeddedResource Include="LogIn.resx">
+      <DependentUpon>LogIn.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SignUp.resx">
+      <DependentUpon>SignUp.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Gym_Padel_DB.xlsx" />
+    <None Include="Untitled Diagram.drawio (1).pdf" />
+    <None Include="Untitled Diagram.drawio.pdf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
