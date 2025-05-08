@@ -54,7 +54,7 @@ xlnt::worksheet Data_Base:: GetUser(std::string FileName) {
 }
 
 //************************************************\\
-}
+
 
 
 xlnt::worksheet Data_Base:: GetManager(std::string FileName) {
