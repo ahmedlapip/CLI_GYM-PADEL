@@ -11,11 +11,13 @@ private:
 public:
 	//constructor
 	Manager(string name, int id, string password);
+	Manager();
 	//setter
 	void setname(string name);
 	void setid(int id);
 	void setpassword(string password);
 	void setcoaches(list<Coatch1> coaches);
+	
 	//getter
 	string getname();
 	int getid();

@@ -1,4 +1,5 @@
 #include "Coatch1.h"
+#include "GymClass.h"
 
 //constructor
 Coatch1::Coatch1(string name,string id, string password) {

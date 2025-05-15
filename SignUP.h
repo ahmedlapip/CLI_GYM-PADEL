@@ -6,7 +6,7 @@
 #include <string>
 #include <msclr/marshal_cppstd.h>
 using namespace std;
-vector<Trainee*> traineeList;
+vector<Trainee> traineeList;
 namespace GymGUI {
 
 	using namespace System;
@@ -146,11 +146,12 @@ namespace GymGUI {
 			this->groupBox2->TabIndex = 1;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Sign Up";
+			this->groupBox2->Enter += gcnew System::EventHandler(this, &SignUp::groupBox2_Enter);
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(263, 529);
+			this->label7->Location = System::Drawing::Point(247, 529);
 			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(0, 16);
@@ -355,5 +356,7 @@ namespace GymGUI {
 	}
 	private: System::Void RadMale_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
-	};
+	private: System::Void groupBox2_Enter(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

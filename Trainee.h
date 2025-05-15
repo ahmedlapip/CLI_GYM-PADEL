@@ -4,6 +4,7 @@
 
 //#include "Subscription.h"
 #include "WorkoutPlan.h"
+#include "Subscription.h"
 using namespace std;
 
 class GymClass;
@@ -12,8 +13,11 @@ class Trainee {
     int userId;
     static int id;
     string name, phone, gender, dateOfBirth, email, password;
-    bool gymOrPadel, isVIP; //1 for gym, 0 for padel
-    //Subscription subscription;
+    Subscription subscription;
+    bool isVIP;
+    int ClassID;
+    
+    
     //list<WorkoutPlan> workout_history;
 
     public:
@@ -30,8 +34,8 @@ class Trainee {
     string getPassword();
     bool getGymOrPadel();
     bool getIsVIP();
-    //Subscription getSubscription();
-
+    Subscription getSubscription();
+    void setId(int id);
     void setName(string name);
     void setPhone(string phone);
     void setGender(string gender);
@@ -40,7 +44,7 @@ class Trainee {
     void setPassword(string password);
     void setGymOrPadel(bool gymOrPadel);
     void setIsVIP(bool isVIP);
-	//void setSubscription(Subscription subscription);
+	void setSubscription(Subscription subscription);
 
     //void subscribe(Subscription subscription);
    // void renew_subscription(int period);

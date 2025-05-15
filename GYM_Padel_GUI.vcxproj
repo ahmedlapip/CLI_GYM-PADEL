@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -120,22 +120,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Add_Session.cpp" />
+    <ClCompile Include="ava_court.cpp" />
     <ClCompile Include="Booking.cpp" />
+    <ClCompile Include="Coatch1.cpp" />
     <ClCompile Include="Court.cpp" />
     <ClCompile Include="Data_Base.cpp" />
     <ClCompile Include="Data_Base_Tools.cpp" />
+    <ClCompile Include="GymClass.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LogIn.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Padel.cpp" />
     <ClCompile Include="Receptionist.cpp" />
+    <ClCompile Include="Receptionist1.cpp" />
     <ClCompile Include="SignUP.cpp" />
     <ClCompile Include="Subscription.cpp" />
+    <ClCompile Include="System.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Trainee.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Addsessions.h" />
+    <ClInclude Include="Add_Session.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ava_court.h" />
     <ClInclude Include="Booking.h" />
+    <ClInclude Include="coachForm.h" />
+    <ClInclude Include="Coatch1.h" />
     <ClInclude Include="Court.h" />
     <ClInclude Include="Data_Base.h" />
     <ClInclude Include="Data_Base_Tools.h" />
@@ -144,14 +157,19 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Padel.h" />
-    <ClInclude Include="Receptionist.h" />
+    <ClInclude Include="plan.h" />
+    <ClInclude Include="Receptionist1.h" />
     <ClInclude Include="SignUP.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Subscription.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Trainee.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Add_Session.resx">
+      <DependentUpon>Add_Session.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogIn.resx">
       <DependentUpon>LogIn.h</DependentUpon>
     </EmbeddedResource>

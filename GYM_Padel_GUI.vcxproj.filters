@@ -36,9 +36,6 @@
     <ClInclude Include="Padel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Receptionist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Subscription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -46,6 +43,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LogIn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ava_court.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Addsessions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coachForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Add_Session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Coatch1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Receptionist1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,6 +108,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LogIn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ava_court.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GymClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coatch1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Add_Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Receptionist1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

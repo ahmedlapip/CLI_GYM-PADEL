@@ -1,14 +1,23 @@
 #include "GymClass.h"
+#include <string>
 
 GymClass::GymClass() = default;
-GymClass::GymClass(string name, int capacity, float startTime, float endTime, float timePeriod, int numberOfSessions, bool type) {
+GymClass::GymClass(string name, int capacity, float startTime, float endTime, float timePeriod, int numberOfSessions) {
 	this->name = name;
 	this->capacity = capacity;
 	this->startTime = startTime;
 	this->endTime = endTime;
 	this->timePeriod = timePeriod;
 	this->numberOfSessions = numberOfSessions;
-	this->type = type;
+	
+}
+GymClass::GymClass(string name, float startTime, string duration) {
+	this->name = name;
+	this->startTime = startTime;
+	this->timePeriod = stof(duration);
+	this->capacity = 0;
+	this->endTime = 0;
+	this->numberOfSessions = 0;
 }
 GymClass::~GymClass() {
 	this->name.clear();
@@ -17,7 +26,7 @@ GymClass::~GymClass() {
 	this->endTime = 0;
 	this->timePeriod = 0;
 	this->numberOfSessions = 0;
-	this->type = false;
+	
 }
 void GymClass::setName(string name) { this->name = name; }
 void GymClass::setCapacity(int capacity) { this->capacity = capacity; }
@@ -25,7 +34,6 @@ void GymClass::setStartTime(float startTime) { this->startTime = startTime; }
 void GymClass::setEndTime(float endTime) { this->endTime = endTime; }
 void GymClass::setTimePeriod(float timePeriod) { this->timePeriod = timePeriod; }
 void GymClass::setNumberOfSessions(int numberOfSessions) { this->numberOfSessions = numberOfSessions; }
-void GymClass::setType(bool type) { this->type = type; }
 
 string GymClass::getName() { return name; }
 int GymClass::getCapacity() { return capacity; }
@@ -33,7 +41,6 @@ float GymClass::getStartTime() { return startTime; }
 float GymClass::getEndTime() { return endTime; }
 float GymClass::getTimePeriod() { return timePeriod; }
 int GymClass::getNumberOfSessions() { return numberOfSessions; }
-bool GymClass::getType() { return type; }
 
 void GymClass::addTraineeToClass(Trainee t) {
 	if (ClassTrainees.size() < capacity) {
