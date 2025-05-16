@@ -5,15 +5,16 @@ int Trainee::id = 0;
 Trainee::Trainee() = default;
 
 Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, string email, string password, bool gymOrPadel, bool isVIP) 
-        : subscription(subscription) {
-    userId = ++id;
+    //    : subscription(subscription) 
+     {
+   userId = ++id;
     this->name = name;
     this->phone = phone;
     this->gender = gender;
     this->dateOfBirth = dateOfBirth;
     this->email = email;
     this->password = password;
-    this->gymOrPadel = gymOrPadel;
+   // this->gymOrPadel = gymOrPadel;
     this->isVIP = isVIP;
 }
 
@@ -25,7 +26,7 @@ Trainee::~Trainee() {
     this->dateOfBirth.clear();
     this->email.clear();
     this->password.clear();
-    this->gymOrPadel = false;
+  //  this->gymOrPadel = false;
 }
 
 
@@ -36,10 +37,10 @@ string Trainee::getGender() { return this->gender; }
 string Trainee::getDateOfBirth() { return this->dateOfBirth; }
 string Trainee::getEmail() { return this->email; }
 string Trainee::getPassword() { return this->password; }
-bool Trainee::getGymOrPadel() { return this->gymOrPadel; }
+//bool Trainee::getGymOrPadel() { return this->gymOrPadel; }
 bool Trainee::getIsVIP() { return this->isVIP; }
 
-Subscription Trainee::getSubscription() { return this->subscription; }
+ //Subscription Trainee::getSubscription() { return this->subscription; }
 
 void::Trainee::setId(int id) { this->id; }
 void Trainee::setName(string name) { this->name = name; }
@@ -48,11 +49,10 @@ void Trainee::setGender(string gender) { this->gender = gender; }
 void Trainee::setDateOfBirth(string dateOfBirth) { this->dateOfBirth = dateOfBirth; }
 void Trainee::setEmail(string email) { this->email = email; }
 void Trainee::setPassword(string password) { this->password = password; }
-void Trainee::setGymOrPadel(bool gymOrPadel) { this->gymOrPadel = gymOrPadel; }
+//void Trainee::setGymOrPadel(bool gymOrPadel) { this->gymOrPadel = gymOrPadel; }
 void Trainee::setIsVIP(bool isVIP) { this->isVIP = isVIP; }
-void Trainee::setSubscription(Subscription subscription) { this->subscription = subscription; }
-
-void Trainee::subscribe(Subscription sub) {
+//void Trainee::setSubscription(Subscription subscription) { this->subscription = subscription; }
+/*void Trainee::subscribe(Subscription sub) {
 
     if (isVIP) {
         sub.setPrice((sub.getPrice() + 200) * sub.getPeriod());
@@ -63,8 +63,9 @@ void Trainee::subscribe(Subscription sub) {
 	}
     subscription = sub;
     sub.display();
-}
+}*/
 
+/*
 void Trainee::renew_subscription(int period) {
     if (period == 1) subscription.setPrice(3000);
     else subscription.setPrice(300);
@@ -99,9 +100,11 @@ void Trainee::delete_subscription() {
     cout << "Subscription deleted successfully." << endl;
 }
 
+}
+*/
 void Trainee::view_workout_history() {
     for(auto i : workout_history) {
-        cout << i.getName() << ", " << i.getHoursPerDay() << ", " << i.getType() << ", " << i.getIntensity() << ", " << i.getLostCalories() << ", " << endl;
+        cout << i.getname_code() << ", " << i.getHoursPerDay() << ", " << i.getIntensity() << ", " << i.getLostCalories() << ", " << endl;
     }
 }
 
@@ -110,7 +113,7 @@ void Trainee::addWorkoutPlan(WorkoutPlan wp) {
 }
 void Trainee::removeWorkoutPlan(WorkoutPlan wp) {
     for (auto it = workout_history.begin(); it != workout_history.end(); ++it) {
-        if (it->getName() == wp.getName()) {
+        if (it->getname_code() == wp.getname_code()) {
             workout_history.erase(it);
             break;
         }

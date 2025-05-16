@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include "GymClass.h"
 using namespace std;
 class Coatch1 
 {
@@ -35,7 +36,9 @@ public:
 	//add
 	void addClass( GymClass gymClass);
 	//remove
-	void removeClass( string className);
+	bool removeClass( string className);
 	//display
 	void displayClasses();
+	
+
 };

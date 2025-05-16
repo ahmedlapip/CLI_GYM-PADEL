@@ -35,7 +35,7 @@ public:
 	//add
 	void registerTrainee(Trainee trainee);
 	//remove
-	void removeTrainee(string traineeID);
+	void removeTrainee(int traineeID);
 	//view member
 	void viewTrainee();
 };

@@ -6,7 +6,7 @@ using namespace std;
 
 #include "Trainee.h"
 #include "WorkoutPlan.h"
-
+#include"Coatch1.h"
 class GymClass
 {
     string name_code;
@@ -18,7 +18,7 @@ class GymClass
 	bool type;
 	int coachID;
 	 // 1 private, 0 group
-    //Coach ClassCoach;
+    //Coatch1 ClassCoach;
     list<WorkoutPlan> ClassWorkoutPlans;
     list<Trainee> ClassTrainees;
     queue<Trainee> ClassWaitingList;
@@ -51,7 +51,7 @@ class GymClass
 	void removeTraineeFromClass(Trainee t);
 
 	void addWorkoutPlan(WorkoutPlan wp);
-	void removeWorkoutPlan(WorkoutPlan wp);
+	void removeWorkoutPlan(string wpname);
 
 	void displayClassInfo();
 	void displayWorkoutPlans();

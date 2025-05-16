@@ -1,30 +1,30 @@
 ﻿#pragma once
-#include <iostream>
-#include <Windows.h>
-#using <System.Windows.Forms.dll>
-#include "coatch1.h"
+#include "Coatch1.h"
+#include <string>
 #include <msclr/marshal_cppstd.h>
-
+#include <iostream>
+#include <vector>
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace System::Drawing;
+using namespace msclr::interop;
 
 namespace Gym {
 
-    public ref class WorkoutPlan : public UserControl
+    public ref class workoutPlan : public UserControl
     {
     private:
         Coatch1* currentCoach;
 
     public:
-        WorkoutPlan(Coatch1* coach)
+        workoutPlan(Coatch1* coach)
         {
             currentCoach = coach;
             InitializeComponent();
-            LoadWorkoutPlans(); 
         }
 
     protected:
-        ~WorkoutPlan()
+        ~workoutPlan()
         {
             if (components)
                 delete components;
@@ -33,102 +33,139 @@ namespace Gym {
     private:
         TextBox^ txtSession;
         TextBox^ txtWorkoutPlan;
-        Button^ btnAssignWorkout;
-        DataGridView^ workoutPlanDataGridView;
+        TextBox^ txtHoursPerDay;
+        TextBox^ txtIntensity;
+        TextBox^ txtLostCalories;
+        Button^ btnSave;
         Label^ lblSession;
         Label^ lblWorkoutPlan;
+        Label^ lblHours;
+        Label^ lblIntensity;
+        Label^ lblCalories;
         System::ComponentModel::Container^ components;
 
         void InitializeComponent(void)
         {
             txtSession = gcnew TextBox();
             txtWorkoutPlan = gcnew TextBox();
-            btnAssignWorkout = gcnew Button();
-            workoutPlanDataGridView = gcnew DataGridView();
+            txtHoursPerDay = gcnew TextBox();
+            txtIntensity = gcnew TextBox();
+            txtLostCalories = gcnew TextBox();
+            btnSave = gcnew Button();
+
             lblSession = gcnew Label();
             lblWorkoutPlan = gcnew Label();
+            lblHours = gcnew Label();
+            lblIntensity = gcnew Label();
+            lblCalories = gcnew Label();
 
-         
+            int y = 20;
+            int spacing = 40;
+
             lblSession->Text = "Session Name:";
-            lblSession->Location = Drawing::Point(20, 0);
-            lblSession->Size = Drawing::Size(150, 20);
-
-            
-            txtSession->Location = Drawing::Point(20, 20);
+            lblSession->Location = Point(20, y);
+            txtSession->Location = Point(160, y);
             txtSession->Size = Drawing::Size(200, 22);
 
-           
+            y += spacing;
             lblWorkoutPlan->Text = "Workout Plan Name:";
-            lblWorkoutPlan->Location = Drawing::Point(20, 50);
-            lblWorkoutPlan->Size = Drawing::Size(150, 20);
-
-           
-            txtWorkoutPlan->Location = Drawing::Point(20, 70);
+            lblWorkoutPlan->Location = Point(20, y);
+            txtWorkoutPlan->Location = Point(160, y);
             txtWorkoutPlan->Size = Drawing::Size(200, 22);
 
-            btnAssignWorkout->Text = "Assign Workout Plan";
-            btnAssignWorkout->Location = Drawing::Point(20, 110);
-            btnAssignWorkout->Size = Drawing::Size(200, 30);
-            btnAssignWorkout->Click += gcnew EventHandler(this, &WorkoutPlan::btnAssignWorkout_Click);
+            y += spacing;
+            lblHours->Text = "Hours Per Day:";
+            lblHours->Location = Point(20, y);
+            txtHoursPerDay->Location = Point(160, y);
+            txtHoursPerDay->Size = Drawing::Size(200, 22);
 
+            y += spacing;
+            lblIntensity->Text = "Intensity:";
+            lblIntensity->Location = Point(20, y);
+            txtIntensity->Location = Point(160, y);
+            txtIntensity->Size = Drawing::Size(200, 22);
 
-            workoutPlanDataGridView->Location = Drawing::Point(20, 160);
-            workoutPlanDataGridView->Size = Drawing::Size(640, 200);
-            workoutPlanDataGridView->Anchor = AnchorStyles::Top | AnchorStyles::Left | AnchorStyles::Right;
-            workoutPlanDataGridView->ColumnCount = 2;
-            workoutPlanDataGridView->Columns[0]->Name = "Session Name";
-            workoutPlanDataGridView->Columns[1]->Name = "Workout Plan";
-            workoutPlanDataGridView->ReadOnly = true;
-            workoutPlanDataGridView->AllowUserToAddRows = false;
-            workoutPlanDataGridView->AllowUserToDeleteRows = false;
-            workoutPlanDataGridView->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
-            workoutPlanDataGridView->ColumnHeadersDefaultCellStyle->Font = gcnew Drawing::Font("Arial", 10);
-            workoutPlanDataGridView->DefaultCellStyle->Font = gcnew Drawing::Font("Arial", 10);
+            y += spacing;
+            lblCalories->Text = "Estimated Lost Calories:";
+            lblCalories->Location = Point(20, y);
+            txtLostCalories->Location = Point(160, y);
+            txtLostCalories->Size = Drawing::Size(200, 22);
 
-            // UserControl
+            y += spacing + 10;
+            btnSave->Text = "Save Workout Plan";
+            btnSave->Location = Point(160, y);
+            btnSave->Size = Drawing::Size(200, 30);
+            btnSave->Click += gcnew EventHandler(this, &workoutPlan::btnSave_Click);
+
             this->Controls->Add(lblSession);
             this->Controls->Add(txtSession);
             this->Controls->Add(lblWorkoutPlan);
             this->Controls->Add(txtWorkoutPlan);
-            this->Controls->Add(btnAssignWorkout);
-            this->Controls->Add(workoutPlanDataGridView);
-            this->Size = Drawing::Size(700, 400);
+            this->Controls->Add(lblHours);
+            this->Controls->Add(txtHoursPerDay);
+            this->Controls->Add(lblIntensity);
+            this->Controls->Add(txtIntensity);
+            this->Controls->Add(lblCalories);
+            this->Controls->Add(txtLostCalories);
+            this->Controls->Add(btnSave);
+
+            this->Size = Drawing::Size(600, 400);
         }
 
-        void btnAssignWorkout_Click(Object^ sender, EventArgs^ e)
+        void btnSave_Click(Object^ sender, EventArgs^ e)
         {
-            String^ session = txtSession->Text->Trim();
-            String^ workout = txtWorkoutPlan->Text->Trim();
+            String^ sessionName = txtSession->Text->Trim();
+            String^ planName = txtWorkoutPlan->Text->Trim();
+            String^ hoursStr = txtHoursPerDay->Text->Trim();
+            String^ intensityStr = txtIntensity->Text->Trim();
+            String^ caloriesStr = txtLostCalories->Text->Trim();
 
-            if (session != "" && workout != "")
+            if (sessionName == "" || planName == "" || hoursStr == "" || intensityStr == "" || caloriesStr == "")
             {
-             
-                workoutPlanDataGridView->Rows->Add(session, workout);
-
-                
-                std::string stdSession = msclr::interop::marshal_as<std::string>(session);
-                std::string stdWorkout = msclr::interop::marshal_as<std::string>(workout);
-                currentCoach->assignWorkoutPlan(stdSession, stdWorkout);
-
-               
-                txtSession->Clear();
-                txtWorkoutPlan->Clear();
+                MessageBox::Show("Please fill in all fields.", "Missing Data", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+                return;
             }
-            else
-            {
-                MessageBox::Show("Please enter both a session and a workout plan.", "Missing Info", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-            }
-        }
 
-        void LoadWorkoutPlans()
-        {
-            workoutPlanDataGridView->Rows->Clear();
-            const auto& plans = currentCoach->getWorkoutPlans();
-            for (const auto& p : plans)
+            try
             {
-                String^ sName = gcnew String(p.first.c_str());
-                String^ plan = gcnew String(p.second.c_str());
-                workoutPlanDataGridView->Rows->Add(sName, plan);
+
+                std::string sessionStd = msclr::interop::marshal_as<std::string>(sessionName);
+                std::string planStd = msclr::interop::marshal_as<std::string>(planName);
+                float hours = std::stof(msclr::interop::marshal_as<std::string>(hoursStr));
+                std::string intensity = msclr::interop::marshal_as<std::string>(intensityStr);
+                float lostCalories = std::stof(msclr::interop::marshal_as<std::string>(caloriesStr));
+
+                WorkoutPlan wp(planStd, hours, intensity, lostCalories,sessionStd);
+
+                std::list<GymClass>& sessions = currentCoach->getClassAssignments();
+                bool found = false;
+                for (auto& s : sessions)
+                {
+                    if (s.getname_code() == sessionStd)
+                    {
+                        s.addWorkoutPlan(wp);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    MessageBox::Show("Workout Plan assigned successfully.", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+                    txtSession->Clear();
+                    txtWorkoutPlan->Clear();
+                    txtHoursPerDay->Clear();
+                    txtIntensity->Clear();
+                    txtLostCalories->Clear();
+                }
+                else
+                {
+                    MessageBox::Show("Session not found among coach's assignments.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+                }
+            }
+            catch (Exception^ ex)
+            {
+                MessageBox::Show("Invalid data format.\n" + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
             }
         }
     };

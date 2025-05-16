@@ -128,7 +128,7 @@ string Booking::bookings_to_string() {
         << ", Price=" << price
         << ", Confirmed=" << isConfirmed
         << ", TraineeID=" << trainee.getId()
-        << ", CourtID=" << court.getId();
+        << ", CourtID=" << court.getName_code();
 
     return oss.str();
 }

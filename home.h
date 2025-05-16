@@ -1,12 +1,13 @@
 ﻿#pragma once
+#include "Coatch1.h"
+#include <string>
+#include <msclr/marshal_cppstd.h>
 #include <iostream>
-#include <Windows.h>
-#using <System.Windows.Forms.dll>
-#include <unordered_map>
-#include "coatch1.h"
-#include "GymClass.h"
+#include <vector>
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace System::Drawing;
+using namespace msclr::interop;
 
 namespace Gym {
     public ref class Home : public System::Windows::Forms::UserControl
@@ -15,7 +16,7 @@ namespace Gym {
         Coatch1* currentCoach;
 
     public:
-        Home(Coatch1* coach)  
+        Home(Coatch1* coach)
         {
             currentCoach = coach;
             InitializeComponent();
@@ -29,13 +30,13 @@ namespace Gym {
 
             sessionDataGridView->Rows->Clear();
 
-            list<GymClass> classes = currentCoach->getClassAssignments();
-            for (const GymClass& gymClass : classes)
+            std::list<GymClass> classes = currentCoach->getClassAssignments();
+            for (GymClass gClass : classes)
             {
                 sessionDataGridView->Rows->Add(
-                    gcnew String(gymClass.getStartTime().c_str()),
-                    gcnew String(gymClass.getName().c_str()),
-                    gcnew String(gymClass.getTimePeriod().c_str())
+                    gcnew String((std::to_string(gClass.getStartTime()) + " hrs").c_str()),
+                    gcnew String(gClass.getname_code().c_str()),
+                    gcnew String((std::to_string(gClass.getTimePeriod()) + " hrs").c_str())
                 );
             }
         }
@@ -61,7 +62,6 @@ namespace Gym {
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->sessionDataGridView))->BeginInit();
             this->SuspendLayout();
 
-            
             this->sessionDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
             this->sessionDataGridView->Location = System::Drawing::Point(20, 70);
             this->sessionDataGridView->Name = L"sessionDataGridView";
@@ -80,7 +80,6 @@ namespace Gym {
             this->sessionDataGridView->Columns->Add("Session", "Session Name");
             this->sessionDataGridView->Columns->Add("Duration", "Duration");
 
-            
             this->lblToday->AutoSize = true;
             this->lblToday->Font = (gcnew System::Drawing::Font(L"Arial", 14, System::Drawing::FontStyle::Bold));
             this->lblToday->Location = System::Drawing::Point(20, 20);
@@ -89,7 +88,6 @@ namespace Gym {
             this->lblToday->TabIndex = 1;
             this->lblToday->Text = L"Today's Sessions";
 
-             
             this->Controls->Add(this->lblToday);
             this->Controls->Add(this->sessionDataGridView);
             this->Name = L"Home";

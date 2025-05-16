@@ -1,20 +1,44 @@
 #pragma once
-#include <iostream>
-#include <Windows.h>
-#using <System.Windows.Forms.dll>
-#include "coatch1.h"
-#include "GymClass.h"
+#include "Coatch1.h"
+#include <string>
 #include <msclr/marshal_cppstd.h>
-
+#include <iostream>
+#include <vector>
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace System::Drawing;
+using namespace msclr::interop;
 
 namespace Gym {
 
-    public ref class AddSession : public System::Windows::Forms::UserControl
+    public ref class AddSession : public UserControl
     {
     private:
         Coatch1* currentCoach;
+
+        Label^ lblSessionName;
+        TextBox^ txtSessionName;
+
+        Label^ lblCapacity;
+        NumericUpDown^ numCapacity;
+
+        Label^ lblNumSessions;
+        NumericUpDown^ numSessions;
+
+        Label^ lblTimePeriod;
+        ComboBox^ cmbTimePeriod;
+
+        Label^ lblStartTime;
+        DateTimePicker^ dtpStartTime;
+
+        GroupBox^ grpSessionType;
+        RadioButton^ rdoPrivate;
+        RadioButton^ rdoPublic;
+
+        Label^ lblEndTimeLabel;
+        Label^ lblEndTime;
+
+        Button^ btnAdd;
 
     public:
         AddSession(Coatch1* coach)
@@ -24,93 +48,171 @@ namespace Gym {
         }
 
     private:
-        Label^ lblName;
-        TextBox^ txtName;
-        Label^ lblDuration;
-        TextBox^ txtDuration;
-        Label^ lblTime;
-        DateTimePicker^ timePicker;
-        Button^ btnAdd;
-        DataGridView^ dgvSessions;
-
         void InitializeComponent()
         {
-            lblName = gcnew Label();
-            txtName = gcnew TextBox();
-            lblDuration = gcnew Label();
-            txtDuration = gcnew TextBox();
-            lblTime = gcnew Label();
-            timePicker = gcnew DateTimePicker();
+            this->Size = Drawing::Size(600, 300);
+
+            lblSessionName = gcnew Label();
+            lblSessionName->Text = "Session Name:";
+            lblSessionName->Location = Point(20, 20);
+            lblSessionName->AutoSize = true;
+
+            txtSessionName = gcnew TextBox();
+            txtSessionName->Location = Point(140, 18);
+            txtSessionName->Width = 150;
+
+            lblCapacity = gcnew Label();
+            lblCapacity->Text = "Capacity:";
+            lblCapacity->Location = Point(20, 60);
+            lblCapacity->AutoSize = true;
+
+            numCapacity = gcnew NumericUpDown();
+            numCapacity->Location = Point(140, 58);
+            numCapacity->Minimum = 1;
+            numCapacity->Maximum = 1000;
+
+            lblNumSessions = gcnew Label();
+            lblNumSessions->Text = "Number of Sessions:";
+            lblNumSessions->Location = Point(20, 100);
+            lblNumSessions->AutoSize = true;
+
+            numSessions = gcnew NumericUpDown();
+            numSessions->Location = Point(140, 98);
+            numSessions->Minimum = 1;
+            numSessions->Maximum = 100;
+
+            lblTimePeriod = gcnew Label();
+            lblTimePeriod->Text = "Time Period (minutes):";
+            lblTimePeriod->Location = Point(20, 140);
+            lblTimePeriod->AutoSize = true;
+
+            cmbTimePeriod = gcnew ComboBox();
+            cmbTimePeriod->Location = Point(160, 138);
+            cmbTimePeriod->Width = 80;
+            cmbTimePeriod->DropDownStyle = ComboBoxStyle::DropDownList;
+            cmbTimePeriod->Items->AddRange(gcnew cli::array< Object^ >(5) { "15", "30", "45", "60", "90" });
+            cmbTimePeriod->SelectedIndex = 0;
+
+            lblStartTime = gcnew Label();
+            lblStartTime->Text = "Start Time:";
+            lblStartTime->Location = Point(20, 180);
+            lblStartTime->AutoSize = true;
+
+            dtpStartTime = gcnew DateTimePicker();
+            dtpStartTime->Format = DateTimePickerFormat::Time;
+            dtpStartTime->ShowUpDown = true;
+            dtpStartTime->Location = Point(140, 178);
+            dtpStartTime->Width = 100;
+
+            grpSessionType = gcnew GroupBox();
+            grpSessionType->Text = "Session Type";
+            grpSessionType->Location = Point(320, 20);
+            grpSessionType->Size = Drawing::Size(200, 60);
+
+            rdoPrivate = gcnew RadioButton();
+            rdoPrivate->Text = "Private";
+            rdoPrivate->Location = Point(10, 25);
+            rdoPrivate->AutoSize = true;
+            rdoPrivate->Checked = true;
+
+            rdoPublic = gcnew RadioButton();
+            rdoPublic->Text = "Public";
+            rdoPublic->Location = Point(100, 25);
+            rdoPublic->AutoSize = true;
+
+            grpSessionType->Controls->Add(rdoPrivate);
+            grpSessionType->Controls->Add(rdoPublic);
+
+            lblEndTimeLabel = gcnew Label();
+            lblEndTimeLabel->Text = "End Time:";
+            lblEndTimeLabel->Location = Point(320, 100);
+            lblEndTimeLabel->AutoSize = true;
+
+            lblEndTime = gcnew Label();
+            lblEndTime->Location = Point(380, 100);
+            lblEndTime->Width = 100;
+            lblEndTime->Text = "--:--";
+
             btnAdd = gcnew Button();
-            dgvSessions = gcnew DataGridView();
-
-            lblName->Text = "Session Name:";
-            lblName->Location = Drawing::Point(20, 20);
-            lblName->Size = Drawing::Size(100, 20);
-
-            txtName->Location = Drawing::Point(130, 20);
-            txtName->Size = Drawing::Size(200, 20);
-
-            lblDuration->Text = "Duration:";
-            lblDuration->Location = Drawing::Point(20, 60);
-            lblDuration->Size = Drawing::Size(100, 20);
-
-            txtDuration->Location = Drawing::Point(130, 60);
-            txtDuration->Size = Drawing::Size(200, 20);
-
-            lblTime->Text = "Start Time:";
-            lblTime->Location = Drawing::Point(20, 100);
-            lblTime->Size = Drawing::Size(100, 20);
-
-            timePicker->Format = DateTimePickerFormat::Time;
-            timePicker->ShowUpDown = true;
-            timePicker->Location = Drawing::Point(130, 100);
-            timePicker->Size = Drawing::Size(200, 20);
-
             btnAdd->Text = "Add Session";
-            btnAdd->Location = Drawing::Point(130, 140);
-            btnAdd->Click += gcnew EventHandler(this, &AddSession::btnAdd_Click);
+            btnAdd->Location = Point(320, 140);
+            btnAdd->Width = 150;
+            btnAdd->Click += gcnew EventHandler(this, &AddSession::OnAddSession);
 
-            dgvSessions->Location = Drawing::Point(20, 180);
-            dgvSessions->Size = Drawing::Size(540, 150);
-            dgvSessions->ColumnCount = 3;
-            dgvSessions->Columns[0]->Name = "Session Name";
-            dgvSessions->Columns[1]->Name = "Start Time";
-            dgvSessions->Columns[2]->Name = "Duration";
-            dgvSessions->ReadOnly = true;
-            dgvSessions->AllowUserToAddRows = false;
-            dgvSessions->AllowUserToDeleteRows = false;
-            dgvSessions->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
+            cmbTimePeriod->SelectedIndexChanged += gcnew EventHandler(this, &AddSession::CalculateEndTime);
+            dtpStartTime->ValueChanged += gcnew EventHandler(this, &AddSession::CalculateEndTime);
 
-            this->Controls->Add(lblName);
-            this->Controls->Add(txtName);
-            this->Controls->Add(lblDuration);
-            this->Controls->Add(txtDuration);
-            this->Controls->Add(lblTime);
-            this->Controls->Add(timePicker);
+            this->Controls->Add(lblSessionName);
+            this->Controls->Add(txtSessionName);
+            this->Controls->Add(lblCapacity);
+            this->Controls->Add(numCapacity);
+            this->Controls->Add(lblNumSessions);
+            this->Controls->Add(numSessions);
+            this->Controls->Add(lblTimePeriod);
+            this->Controls->Add(cmbTimePeriod);
+            this->Controls->Add(lblStartTime);
+            this->Controls->Add(dtpStartTime);
+            this->Controls->Add(grpSessionType);
+            this->Controls->Add(lblEndTimeLabel);
+            this->Controls->Add(lblEndTime);
             this->Controls->Add(btnAdd);
-            this->Controls->Add(dgvSessions);
-            this->Size = Drawing::Size(600, 350);
+
+            CalculateEndTime(nullptr, nullptr);
         }
 
-        void btnAdd_Click(Object^ sender, EventArgs^ e)
+        void CalculateEndTime(Object^ sender, EventArgs^ e)
         {
-            using namespace msclr::interop;
-            std::string name = marshal_as<std::string>(txtName->Text);
-            std::string duration = marshal_as<std::string>(txtDuration->Text);
-            std::string startTime = marshal_as<std::string>(timePicker->Value.ToString("HH:mm"));
-            // Name , Capacity, Start Time, End Time, Period,Number of Sessions ->month
+            if (cmbTimePeriod == nullptr || cmbTimePeriod->SelectedItem == nullptr || dtpStartTime == nullptr)
+            {
+                lblEndTime->Text = "Invalid input";
+                return;
+            }
 
-            GymClass * GymClass= new GymClass(name, startTime, duration);
-            currentCoach->addClass(newClass);
+            int timePeriodMins;
+            bool success = Int32::TryParse(cmbTimePeriod->SelectedItem->ToString(), timePeriodMins);
+            if (!success)
+            {
+                lblEndTime->Text = "Invalid time period";
+                return;
+            }
 
-            dgvSessions->Rows->Add(
-                gcnew String(name.c_str()),
-                gcnew String(startTime.c_str()),
-                gcnew String(duration.c_str())
+            DateTime start = dtpStartTime->Value;
+            DateTime end = start.AddMinutes(timePeriodMins);
+
+            lblEndTime->Text = end.ToString("HH:mm");
+        }
+
+        void OnAddSession(Object^ sender, EventArgs^ e)
+        {
+            String^ sessionName = txtSessionName->Text->Trim();
+            int capacity = (int)numCapacity->Value;
+            int numSess = (int)numSessions->Value;
+            int timePeriod = Int32::Parse(cmbTimePeriod->SelectedItem->ToString());
+            DateTime startTime = dtpStartTime->Value;
+            String^ sessionType = rdoPrivate->Checked ? "Private" : "Public";
+
+            if (String::IsNullOrEmpty(sessionName))
+            {
+                MessageBox::Show("Please enter a session name.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+                return;
+            }
+
+            String^ coachID = gcnew String(currentCoach->getid().c_str());
+
+            String^ msg = String::Format(
+                "Session Added:\nName: {0}\nCapacity: {1}\nSessions: {2}\nTime Period: {3} mins\nStart: {4}\nEnd: {5}\nType: {6}\nCoach ID: {7}",
+                sessionName, capacity, numSess, timePeriod, startTime.ToString("HH:mm"), lblEndTime->Text, sessionType, coachID
             );
 
-            MessageBox::Show("Session added!");
+            MessageBox::Show(msg, "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+            txtSessionName->Clear();
+            numCapacity->Value = 1;
+            numSessions->Value = 1;
+            cmbTimePeriod->SelectedIndex = 0;
+            dtpStartTime->Value = DateTime::Now;
+            rdoPrivate->Checked = true;
+            CalculateEndTime(nullptr, nullptr);
         }
     };
 }

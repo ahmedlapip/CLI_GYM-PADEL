@@ -1,56 +1,83 @@
-﻿#include"home.h"
-#include"Addsessions.h"
-#include"plan.h"
-#include"Coatch1.h"
+﻿#pragma once
+#include "Coatch1.h"
+#include "RemoveSession.h" 
+#include "Home.h"
+#include "Add_Session.h"
+#include "plan.h"
+#include "RemovePlan.h"
 
-public ref class coachtabs : public UserControl
-{
-private:
-    Coatch1* currentCoach;  
+using namespace System;
+using namespace System::Windows::Forms;
+using namespace System::Drawing;
 
-public:
-    coachtabs(Coatch1* coach)
+namespace Gym {
+
+    public ref class coachForm : public Form
     {
-        currentCoach = coach;  
-        InitializeComponent();
-    }
+    private:
+        Coatch1* currentCoach;
 
-private:
-    TabControl^ tabControl;
-    TabPage^ tabHome;
-    TabPage^ tabAddSession;
-    TabPage^ tabWorkout;
-    Home^ homeTab;
-    AddSession^ addSessionTab;
-    WorkoutPlan^ workoutPlanTab;
+        TabControl^ tabControl;
+        TabPage^ tabHome;
+        TabPage^ tabAddSession;
+        TabPage^ tabPlan;
+        TabPage^ tabRemovePlan;
+        TabPage^ tabRemoveSession;
 
-    void InitializeComponent()
-    {
-        this->tabControl = gcnew TabControl();
-        this->tabHome = gcnew TabPage("Home");
-        this->tabAddSession = gcnew TabPage("Add Session");
-        this->tabWorkout = gcnew TabPage("Workout Plan");
+        Home^ homeTab;
+        AddSession^ addSessionTab;
+        workoutPlan^ planTab;
+        RemoveWorkoutPlan^ removePlanTab;
+        RemoveSession^ removeSessionTab; 
 
-        this->homeTab = gcnew Home(currentCoach); 
-        this->addSessionTab = gcnew AddSession(currentCoach);  
-        this->workoutPlanTab = gcnew WorkoutPlan(currentCoach);
+    public:
+        coachForm(Coatch1* coach)
+        {
+            currentCoach = coach;
+            InitializeComponent();
+        }
 
-        this->tabControl->Dock = DockStyle::Fill;
-        this->tabControl->Alignment = TabAlignment::Left;
-        this->tabControl->SizeMode = TabSizeMode::Fixed;
-        this->tabControl->ItemSize = System::Drawing::Size(40, 120);
-        this->tabControl->Multiline = true;
+    private:
+        void InitializeComponent(void)
+        {
+            this->Text = "Coach Dashboard";
+            this->Size = Drawing::Size(800, 600);
+            this->StartPosition = FormStartPosition::CenterScreen;
 
-        this->tabHome->Controls->Add(this->homeTab);
-        this->tabAddSession->Controls->Add(this->addSessionTab);
-        this->tabWorkout->Controls->Add(this->workoutPlanTab);
+            tabControl = gcnew TabControl();
+            tabControl->Dock = DockStyle::Fill;
 
-        this->tabControl->Controls->Add(this->tabHome);
-        this->tabControl->Controls->Add(this->tabAddSession);
-        this->tabControl->Controls->Add(this->tabWorkout);
+            tabHome = gcnew TabPage("Home");
+            tabAddSession = gcnew TabPage("Add Session");
+            tabPlan = gcnew TabPage("Workout Plan");
+            tabRemovePlan = gcnew TabPage("Remove Plan");
+            tabRemoveSession = gcnew TabPage("Remove Session");
 
-        this->Controls->Add(this->tabControl);
+            homeTab = gcnew Home(currentCoach);
+            addSessionTab = gcnew AddSession(currentCoach);
+            planTab = gcnew workoutPlan(currentCoach);
+            removePlanTab = gcnew RemoveWorkoutPlan(currentCoach);
+            removeSessionTab = gcnew RemoveSession(currentCoach);
 
-        this->Size = System::Drawing::Size(800, 500);
-    }
-};
+            homeTab->Dock = DockStyle::Fill;
+            addSessionTab->Dock = DockStyle::Fill;
+            planTab->Dock = DockStyle::Fill;
+            removePlanTab->Dock = DockStyle::Fill;
+            removeSessionTab->Dock = DockStyle::Fill;
+
+            tabHome->Controls->Add(homeTab);
+            tabAddSession->Controls->Add(addSessionTab);
+            tabPlan->Controls->Add(planTab);
+            tabRemovePlan->Controls->Add(removePlanTab);
+            tabRemoveSession->Controls->Add(removeSessionTab);
+
+            tabControl->TabPages->Add(tabHome);
+            tabControl->TabPages->Add(tabAddSession);
+            tabControl->TabPages->Add(tabRemoveSession);
+            tabControl->TabPages->Add(tabPlan);
+            tabControl->TabPages->Add(tabRemovePlan);
+
+            this->Controls->Add(tabControl);
+        }
+    };
+}

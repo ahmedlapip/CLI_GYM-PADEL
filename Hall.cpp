@@ -20,7 +20,7 @@ void Hall::addClass(GymClass c) {
 }
 void Hall::removeClassFromHall(GymClass c) {
 	for (auto it = HallClasses.begin(); it != HallClasses.end(); ++it) {
-		if (it->getName() == c.getName()) {
+		if (it->getname_code() == c.getname_code()) {
 			HallClasses.erase(it);
 			break;
 		}
@@ -33,7 +33,7 @@ void Hall::displayHallInfo() {
 	cout << "Hall Code: " << Code << endl;
 	cout << "Classes in this hall: " << endl;
 	for (auto& gymClass : HallClasses) {
-		cout << "Class Name: " << gymClass.getName() << endl;
+		cout << "Class Name: " << gymClass.getname_code() << endl;
 		cout << "Capacity: " << gymClass.getCapacity() << endl;
 		cout << "Start Time: " << gymClass.getStartTime() << endl;
 		cout << "End Time: " << gymClass.getEndTime() << endl;

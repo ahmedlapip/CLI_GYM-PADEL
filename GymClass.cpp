@@ -2,17 +2,19 @@
 #include <string>
 
 GymClass::GymClass() = default;
-GymClass::GymClass(string name, int capacity, float startTime, float endTime, float timePeriod, int numberOfSessions) {
-	this->name = name;
+GymClass::GymClass(string name, int capacity, float startTime, float endTime, float timePeriod, int numberOfSessions, bool type,int coachid) {
+	this->name_code = name;
 	this->capacity = capacity;
 	this->startTime = startTime;
 	this->endTime = endTime;
 	this->timePeriod = timePeriod;
 	this->numberOfSessions = numberOfSessions;
+	this->type = type;
+	this->coachID = coachid;
 	
 }
 GymClass::GymClass(string name, float startTime, string duration) {
-	this->name = name;
+	this->name_code = name;
 	this->startTime = startTime;
 	this->timePeriod = stof(duration);
 	this->capacity = 0;
@@ -20,7 +22,7 @@ GymClass::GymClass(string name, float startTime, string duration) {
 	this->numberOfSessions = 0;
 }
 GymClass::~GymClass() {
-	this->name.clear();
+	this->name_code.clear();
 	this->capacity = 0;
 	this->startTime = 0;
 	this->endTime = 0;
@@ -28,14 +30,14 @@ GymClass::~GymClass() {
 	this->numberOfSessions = 0;
 	
 }
-void GymClass::setName(string name) { this->name = name; }
+void GymClass::setname_code(string name) { this->name_code = name; }
 void GymClass::setCapacity(int capacity) { this->capacity = capacity; }
 void GymClass::setStartTime(float startTime) { this->startTime = startTime; }
 void GymClass::setEndTime(float endTime) { this->endTime = endTime; }
 void GymClass::setTimePeriod(float timePeriod) { this->timePeriod = timePeriod; }
 void GymClass::setNumberOfSessions(int numberOfSessions) { this->numberOfSessions = numberOfSessions; }
 
-string GymClass::getName() { return name; }
+string GymClass::getname_code() { return name_code; }
 int GymClass::getCapacity() { return capacity; }
 float GymClass::getStartTime() { return startTime; }
 float GymClass::getEndTime() { return endTime; }
@@ -74,40 +76,17 @@ void GymClass::addWorkoutPlan(WorkoutPlan wp) {
 		t.addWorkoutPlan(wp);
 	}
 }
-void GymClass::removeWorkoutPlan(WorkoutPlan wp) {
+void GymClass::removeWorkoutPlan(string wpname) {
+	WorkoutPlan* wp;
 	for (auto it = ClassWorkoutPlans.begin(); it != ClassWorkoutPlans.end(); ++it) {
-		if (it->getName() == wp.getName()) {
-			ClassWorkoutPlans.erase(it);
+		if (it->getname_code() == wpname) {
+			ClassWorkoutPlans.erase(it);	
+			wp = new WorkoutPlan(it->getname_code(), it->getHoursPerDay(), it->getIntensity(), it->getLostCalories(), it->getClass_name_code());
 			break;
 		}
 	}
 	for (auto t : ClassTrainees) {
-		t.removeWorkoutPlan(wp);
-	}
-}
-
-void GymClass::displayClassInfo() {
-	cout << "Class Name: " << name << endl;
-	cout << "Capacity: " << capacity << endl;
-	cout << "Start Time: " << startTime << endl;
-	cout << "End Time: " << endTime << endl;
-	cout << "Time Period: " << timePeriod << endl;
-	cout << "Number of Sessions: " << numberOfSessions << endl;
-	cout << "Type: " << (type ? "Private" : "Group") << endl;
-}
-void GymClass::displayWorkoutPlans() {
-	for (auto wp : ClassWorkoutPlans) {
-		cout << "Workout Plan Name: " << wp.getName() << endl;
-		cout << "Hours Per Day: " << wp.getHoursPerDay() << endl;
-		cout << "Type: " << wp.getType() << endl;
-		cout << "Intensity: " << wp.getIntensity() << endl;
-		cout << "Lost Calories: " << wp.getLostCalories() << endl;
-	}
-}
-void GymClass::displayTraineesInClass() {
-	for (auto t : ClassTrainees) {
-		cout << "Trainee Name: " << t.getName() << endl;
-		cout << "Trainee ID: " << t.getId() << endl;
+		t.removeWorkoutPlan(*wp);
 	}
 }
 
