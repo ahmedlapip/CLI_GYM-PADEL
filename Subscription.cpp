@@ -22,11 +22,14 @@ Subscription::~Subscription() {
 }
 
 int Subscription::getID() { return this->subId; }
+int Subscription::getTraineeID() { return this->traineeId; }
 string Subscription::getStartDate() { return this->startDate; }
 string Subscription::getEndDate() { return this->endDate; }
 int Subscription::getPeriod() { return this->period; }
 float Subscription::getPrice() { return this->price; }
 
+void Subscription::setID(int id) { this->subId = id; }
+void Subscription::setTraineeID(int id) { this->traineeId = id; }
 void Subscription::setStartDate(string startDate) { this->startDate = startDate; }
 void Subscription::setEndDate(string endDate) { this->endDate = endDate; }
 void Subscription::setPeriod(int period) { this->period = period; }

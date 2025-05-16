@@ -28,7 +28,6 @@ void Gym::displayGymInfo() {
 		cout << "Class Name: " << gymClass.second.getName() << endl;
 		cout << "Capacity: " << gymClass.second.getCapacity() << endl;
 		cout << "Start Time: " << gymClass.second.getStartTime() << endl;
-		cout << "End Time: " << gymClass.second.getEndTime() << endl;
 		cout << "Time Period: " << gymClass.second.getTimePeriod() << endl;
 		cout << "Number of Sessions: " << gymClass.second.getNumberOfSessions() << endl;
 	}

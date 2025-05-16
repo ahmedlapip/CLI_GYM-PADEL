@@ -5,6 +5,7 @@ using namespace std;
 class Subscription {
 	static int id;
 	int subId;
+	int traineeId;
     string startDate, endDate;
     int period; //period[1 year, 6 months, 3 months] only 3 values (1,6,3)
     float price;
@@ -15,11 +16,14 @@ class Subscription {
     ~Subscription();
 
     int getID();
+	int getTraineeID();
     string getStartDate();
     string getEndDate();
     int getPeriod();
     float getPrice();
 
+	void setID(int id);
+	void setTraineeID(int id);
     void setStartDate(string startDate);
     void setEndDate(string endDate);
     void setPeriod(int period);

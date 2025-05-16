@@ -2,9 +2,11 @@
 
 int Trainee::id = 0;
 
-Trainee::Trainee() = default;
+Trainee::Trainee() {
+    userId = ++id;
+}
 
-Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, string email, string password, bool gymOrPadel, bool isVIP) 
+Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, string email, string password, bool isVIP) 
         : subscription(subscription) {
     userId = ++id;
     this->name = name;
@@ -13,7 +15,6 @@ Trainee::Trainee(string name, string phone, string gender, string dateOfBirth, s
     this->dateOfBirth = dateOfBirth;
     this->email = email;
     this->password = password;
-    this->gymOrPadel = gymOrPadel;
     this->isVIP = isVIP;
 }
 
@@ -25,7 +26,6 @@ Trainee::~Trainee() {
     this->dateOfBirth.clear();
     this->email.clear();
     this->password.clear();
-    this->gymOrPadel = false;
 }
 
 
@@ -36,19 +36,20 @@ string Trainee::getGender() { return this->gender; }
 string Trainee::getDateOfBirth() { return this->dateOfBirth; }
 string Trainee::getEmail() { return this->email; }
 string Trainee::getPassword() { return this->password; }
-bool Trainee::getGymOrPadel() { return this->gymOrPadel; }
 bool Trainee::getIsVIP() { return this->isVIP; }
 Subscription Trainee::getSubscription() { return this->subscription; }
+list<WorkoutPlan> Trainee::getWorkoutHistory() { return this->workout_history; }
 
+void Trainee::setId(int id) { this->userId = id; }
 void Trainee::setName(string name) { this->name = name; }
 void Trainee::setPhone(string phone) { this->phone = phone; }
 void Trainee::setGender(string gender) { this->gender = gender; }
 void Trainee::setDateOfBirth(string dateOfBirth) { this->dateOfBirth = dateOfBirth; }
 void Trainee::setEmail(string email) { this->email = email; }
 void Trainee::setPassword(string password) { this->password = password; }
-void Trainee::setGymOrPadel(bool gymOrPadel) { this->gymOrPadel = gymOrPadel; }
 void Trainee::setIsVIP(bool isVIP) { this->isVIP = isVIP; }
 void Trainee::setSubscription(Subscription subscription) { this->subscription = subscription; }
+void Trainee::setWorkoutHistory(list<WorkoutPlan> workout_history) { this->workout_history = workout_history; }
 
 void Trainee::subscribe(Subscription sub) {
 

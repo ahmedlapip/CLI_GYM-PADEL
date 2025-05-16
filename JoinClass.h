@@ -1,5 +1,5 @@
 #pragma once
-#include "BaseForm.h"
+
 #include "Gym.h"
 #include <iomanip>
 #include <sstream>
@@ -20,42 +20,31 @@ namespace gymproject {
 	public ref class JoinClass : public System::Windows::Forms::Form
 	{
 	private: Gym* gym;
+	private: Trainee* trainee;
 	public:
-		JoinClass(Gym* gym)
+		JoinClass(Gym* gym, Trainee* trainee)
 		{
 			InitializeComponent();
 			this->gym = gym;
+			this->trainee = trainee;
 
 			unordered_map<string, GymClass> gymClasses = gym->getGymClasses();
-			int numLinesPerClass = 7;
-			size_t numClasses = gymClasses.size();
 
-			vector<vector<string>> allClassData;
-
-			for (auto g : gymClasses) {
-				allClassData.push_back(g.second.class_to_string());
-			}
-			for (int line = 0; line < numLinesPerClass; ++line) {
-				string row = "";
-				for (int cls = 0; cls < numClasses; ++cls) {
-					if (line == 0) {
-						comboBox1->Items->Add(gcnew String(allClassData[cls][line].substr(12, allClassData[cls][line].size()).c_str()));
-					}
-					if (line == 4 || line == 5) {
-						row += allClassData[cls][line] + "\t";
-					} 
-					else if (line == 0 && allClassData[cls][line].size() >= 20) row += allClassData[cls][line] + "\t";
-					else row += allClassData[cls][line] + "\t\t";
+			for (auto& g : gymClasses) {
+				vector<string> classDetails = g.second.class_to_string();
+				comboBox1->Items->Add(gcnew String(classDetails[0].substr(12, classDetails[0].size()).c_str()));
+				string det = "";
+				int i = 0;
+				for (const string& detail : classDetails) {
+					if (i == 6) det += detail;
+					else det += detail + " | ";
+					i++;
 				}
-				this->listBox1->Items->Add(gcnew String(row.c_str()));
+				this->dataGridView1->Rows->Add(gcnew String(det.c_str()));
 			}
 
 			this->WindowState = FormWindowState::Maximized;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			this->BackgroundImage = System::Drawing::Image::FromFile("background.jpg");
-			this->BackgroundImageLayout = ImageLayout::Stretch;
-			this->BackgroundImageLayout = ImageLayout::Center;
-			this->BackgroundImageLayout = ImageLayout::Zoom;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -86,8 +75,10 @@ namespace gymproject {
 
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::ListBox^ listBox1;
+
 	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Classes;
 
 	private:
 		/// <summary>
@@ -103,7 +94,8 @@ namespace gymproject {
 		void InitializeComponent(void)
 		{
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Classes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -113,6 +105,7 @@ namespace gymproject {
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// splitContainer1
@@ -125,7 +118,7 @@ namespace gymproject {
 			// 
 			// splitContainer1.Panel1
 			// 
-			this->splitContainer1->Panel1->Controls->Add(this->listBox1);
+			this->splitContainer1->Panel1->Controls->Add(this->dataGridView1);
 			this->splitContainer1->Panel1->Controls->Add(this->label1);
 			// 
 			// splitContainer1.Panel2
@@ -138,17 +131,24 @@ namespace gymproject {
 			this->splitContainer1->SplitterDistance = 410;
 			this->splitContainer1->TabIndex = 1;
 			// 
-			// listBox1
+			// dataGridView1
 			// 
-			this->listBox1->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->listBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->ItemHeight = 20;
-			this->listBox1->Location = System::Drawing::Point(0, 106);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(1448, 304);
-			this->listBox1->TabIndex = 1;
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AllowUserToResizeRows = false;
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Classes });
+			this->dataGridView1->Location = System::Drawing::Point(237, 155);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(949, 238);
+			this->dataGridView1->TabIndex = 2;
+			// 
+			// Classes
+			// 
+			this->Classes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Classes->HeaderText = L"Classes";
+			this->Classes->Name = L"Classes";
+			this->Classes->ReadOnly = true;
 			// 
 			// label1
 			// 
@@ -218,6 +218,7 @@ namespace gymproject {
 			this->splitContainer1->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 
 		}

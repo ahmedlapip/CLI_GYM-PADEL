@@ -1,37 +1,45 @@
 #pragma once
-#include "Coatch1.h"
+#include "Coatch.h"
+#include "Receptionist.h"
 #include<list>
+#include<unordered_map>
 class Manager 
 {
 private:
+	string id;
 	string name;
-	int id;
 	string password;
-	list<Coatch1> coaches;
+	unordered_map<string, Coatch> coachMap;
+	unordered_map<string, Receptionist> recpMap;
 public:
 	//constructor
-	Manager(string name, int id, string password);
+	Manager() = default;
+	Manager(string id, string name, string password);
 	//setter
+	void setid(string id);
 	void setname(string name);
-	void setid(int id);
 	void setpassword(string password);
-	void setcoaches(list<Coatch1> coaches);
+	void setcoaches(unordered_map<string, Coatch> coaches);
+	void setreceptionists(unordered_map<string, Receptionist> receptionists);
 	//getter
+	string getid();
 	string getname();
-	int getid();
 	string getpassword();
-	list<Coatch1> getcoaches();
+	unordered_map<string, Coatch> getcoaches();
+	unordered_map<string, Receptionist> getreceptionists();
 	// Update 
 	void updateMangerInfo(string newname, string newpassword);
 	//destructor
 	~Manager();
 	
 	// Add a coach
-	void addCoach(Coatch1 coach);
+	void addCoach(Coatch coach);
 	// Remove a coach by ID
-	void removeCoach(string coachID);
-	// View all coaches
-	void viewCoaches();
+	bool removeCoach(string coachID);
+	// Add a receptionist
+	void addReceptionist(Receptionist receptionist);
+	// Remove a receptionist by ID
+	bool removeReceptionist(string receptionistID);
 	
 
 };
