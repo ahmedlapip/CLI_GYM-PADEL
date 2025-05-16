@@ -1,40 +1,79 @@
-//<<<<<<< HEAD
-//#include <iostream>
-//
-//
-//using namespace std;
-//
-//int main() {
-//    vector<ClassRoom> classes;
-//    classes.push_back(ClassRoom(15, "Yoga", "9AM - 10AM", 10, false));
-//    classes.push_back(ClassRoom(10, "Padel", "11AM - 12PM", 8, true));
-//    classes.push_back(ClassRoom(20, "CrossFit", "5PM - 6PM", 12, false));
-//    classes.push_back(ClassRoom(12, "Boxing", "1PM - 2PM", 9, true));
-//    classes.push_back(ClassRoom(8, "Pilates", "7AM - 8AM", 6, false));
-//    classes.push_back(ClassRoom(25, "Strength", "6PM - 7PM", 15, false));
-//    return 0;
-//=======
-//#include "Data_Base.h"  
-//#include <iostream>  
-//using namespace std;  
-//
-//int main() {  
-//  Data_Base* db = Data_Base::GetDB();  
-//  cout << "Database initialized successfully!" << endl;  
-//  db->getGym_Padel_DB("Gym_Padel_DB.xlsx");  
-//  db->GetUser("User");
-//  db->GetManager("Manager");
-//  db->GetTrainee("Trainee");
-//  db->GetCoach("Coach");
-//  db->GetClass("Class");
-//  db->GetHallSystem("HallSystem");
-//  db->GetWorkoutPlan("WorkoutPlan");
-//  db->GetReceptionist("Receptionist");
-//  
-//
-//
-//  cout << "Database initialized successfully!" << endl;  
-//  db->SaveGym_Padel_DB("Gym_Padel_DB.xlsx");
-//  return 0;  
-//>>>>>>> 4ae143ecec2b8c329adb42e47c39ea1d4f22ea99
-//}
+#include <iostream>
+#include "Trainee.h"
+#include "Subscription.h"
+#include "Padel.h"
+#include "Court.h"
+#include "Booking.h"
+#include "Home.h"
+#include "Gym.h"
+#include <Windows.h>
+#include "Home2.h"
+#include "PlanForm.h"
+#include "CoatchForm.h"
+#include "System.h"
+#include "Register.h"
+
+using namespace System;
+using namespace System::Windows::Forms;
+using namespace std;
+using namespace gymproject;
+
+[STAThread]
+int main(cli::array<System::String^>^ args) {
+	AllocConsole();
+	freopen(".log.txt", "w", stdout);
+	freopen(".log.txt", "a", stderr);
+	cout << "Starting program...\n";
+
+
+	/*Trainee trainee = Trainee("ahmed", "01221292988", "male", "18-2-2006", "a@a.com", "123456789", true);
+	Subscription subscription = Subscription("25-4-2025", 1);
+	subscription.setEndDate("25-4-2026");
+	trainee.subscribe(subscription);
+	trainee.renew_subscription(6);
+	Padel padel = Padel();
+	Court court = Court("court1", 500, "loc1", true);
+	court.displayCourtInfo();
+	padel.addCourt(court);
+
+	Booking booking = Booking(trainee, court, "25-4-2025", "10:00", 2);
+	booking.displayBookingInfo();
+	if (padel.bookCourt(booking)) cout << "Booking successful!" << endl;
+	else cout << "Booking failed!" << endl;
+
+	vector<string> bookings = padel.padel_to_string_bookings();
+	for (const auto& booking : bookings) {
+		cout << booking << endl;
+	}
+
+	vector<string> courts = padel.padel_to_string_courts();
+	for (const auto& court : courts) {
+		cout << court << endl;
+	}
+
+	Gym gym = Gym();
+	gym.addGymClass(GymClass("Yoga", 20, "10:00", 1, 5, false));
+	gym.addGymClass(GymClass("Upper Body", 20, "13:00", 2, 10, false));
+	gym.addGymClass(GymClass("Lower Body", 20, "13:00", 2, 10, false));
+
+	Coatch coatch = Coatch("ahmed", "111", "123456789", 12345);
+	coatch.addClass(GymClass("Yoga", 20, "10:00", 1, 5, false));
+	coatch.assignWorkoutPlan("Yoga", "Yoga Plan");*/
+
+	/*Booking booking1 = Booking(trainee, court, "25-4-2025", "11:00", 2);
+	booking1.displayBookingInfo();
+	if (padel.bookCourt(booking1)) cout << "Booking successful!" << endl;
+	else cout << "Booking failed!" << endl;
+
+	if (padel.removeBooking(booking)) cout << "Booking removed!" << endl;
+	else cout << "Booking failed to remove!" << endl;
+	if (padel.removeBooking(booking1)) cout << "Booking removed!" << endl;
+	else cout << "Booking failed to remove!" << endl;*/
+	SystemManager sys;
+	sys.Load_All_Data();
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(false);
+	Application::Run(gcnew Register(&sys));
+	sys.Save_All_Data();
+    return 0;
+}

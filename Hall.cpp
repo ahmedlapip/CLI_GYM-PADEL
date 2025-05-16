@@ -36,7 +36,6 @@ void Hall::displayHallInfo() {
 		cout << "Class Name: " << gymClass.getName() << endl;
 		cout << "Capacity: " << gymClass.getCapacity() << endl;
 		cout << "Start Time: " << gymClass.getStartTime() << endl;
-		cout << "End Time: " << gymClass.getEndTime() << endl;
 		cout << "Time Period: " << gymClass.getTimePeriod() << endl;
 		cout << "Number of Sessions: " << gymClass.getNumberOfSessions() << endl;
 	}

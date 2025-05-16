@@ -6,41 +6,43 @@ using namespace std;
 
 #include "Trainee.h"
 #include "WorkoutPlan.h"
+//#include "Coatch.h"
 
 class GymClass
 {
     string name;
     int capacity;
-    float startTime;
-    float endTime;
+    string startTime;
     float timePeriod;
     int numberOfSessions;
 	bool type; // 1 private, 0 group
-    //Coach ClassCoach;
+    string coachId;
     list<WorkoutPlan> ClassWorkoutPlans;
     list<Trainee> ClassTrainees;
     queue<Trainee> ClassWaitingList;
 
 	public:
 	GymClass();
-	GymClass(string name, int capacity, float startTime, float endTime, float timePeriod, int numberOfSessions, bool type);
+	GymClass(string name, int capacity, string startTime, float timePeriod, int numberOfSessions, bool type);
 	~GymClass();
 
 	void setName(string name);
 	void setCapacity(int capacity);
-	void setStartTime(float startTime);
-	void setEndTime(float endTime);
+	void setStartTime(string startTime);
+	void setEndTime(string endTime);
 	void setTimePeriod(float timePeriod);
 	void setNumberOfSessions(int numberOfSessions);
 	void setType(bool type);
+	void setClassCoach(string coachId);
 
 	string getName();
 	int getCapacity();
-	float getStartTime();
-	float getEndTime();
+	string getStartTime();
+	string getEndTime();
 	float getTimePeriod();
 	int getNumberOfSessions();
 	bool getType();
+	string getClassCoach();
 
 	void addTraineeToClass(Trainee t);
 	void removeTraineeFromClass(Trainee t);
@@ -51,6 +53,8 @@ class GymClass
 	void displayClassInfo();
 	void displayWorkoutPlans();
 	void displayTraineesInClass();
+
+	vector<string> class_to_string();
 
 };
 

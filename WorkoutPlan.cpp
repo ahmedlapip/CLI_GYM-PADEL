@@ -21,9 +21,11 @@ void WorkoutPlan::setHoursPerDay(float hoursPerDay) { this->HoursPerDay = hoursP
 void WorkoutPlan::setType(string type) { this->Type = type; }
 void WorkoutPlan::setIntensity(string intensity) { this->Intensity = intensity; }
 void WorkoutPlan::setLostCalories(float lostCalories) { this->LostCalories = lostCalories; }
+void WorkoutPlan::setClass_name_code(string className) { this->className = className; }
 
 string WorkoutPlan::getName() { return Name; }
 float WorkoutPlan::getHoursPerDay() { return HoursPerDay; }
 string WorkoutPlan::getType() { return Type; }
 string WorkoutPlan::getIntensity() { return Intensity; }
 float WorkoutPlan::getLostCalories() { return LostCalories; }
+string WorkoutPlan::getClass_name_code() { return className; }
