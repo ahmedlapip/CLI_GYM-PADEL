@@ -43,7 +43,7 @@ namespace Gym {
             this->Text = "Coach Dashboard";
             this->Size = Drawing::Size(800, 600);
             this->StartPosition = FormStartPosition::CenterScreen;
-
+      this->button1 = (gcnew System::Windows::Forms::Button());
             tabControl = gcnew TabControl();
             tabControl->Dock = DockStyle::Fill;
 
@@ -70,7 +70,16 @@ namespace Gym {
             tabPlan->Controls->Add(planTab);
             tabRemovePlan->Controls->Add(removePlanTab);
             tabRemoveSession->Controls->Add(removeSessionTab);
-
+ // button1
+ // 
+ this->button1->Location = System::Drawing::Point(929, 535);
+ this->button1->Name = L"button1";
+ this->button1->Size = System::Drawing::Size(75, 23);
+ this->button1->TabIndex = 0;
+ this->button1->Text = L"Logout";
+ this->button1->UseVisualStyleBackColor = true;
+ this->button1->Click += gcnew System::EventHandler(this, &CoatchForm::button1_Click);
+ // 
             tabControl->TabPages->Add(tabHome);
             tabControl->TabPages->Add(tabAddSession);
             tabControl->TabPages->Add(tabRemoveSession);
@@ -79,5 +88,6 @@ namespace Gym {
 
             this->Controls->Add(tabControl);
         }
+    private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
     };
 }
